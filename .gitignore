@@ -1,0 +1,32 @@
+# venv
+/*venv*/
+
+# env variables
+.env*
+
+# pycache
+__pycache__/
+*.pyc
+
+# YOLO auto-generated inference logs
+runs/
+
+# model weights
+models/*
+!models/.gitkeep
+
+# input media (add your own locally)
+assets/images/*
+!assets/images/.gitkeep
+assets/videos/*
+!assets/videos/.gitkeep
+
+# generated outputs
+outputs/*
+!outputs/.gitkeep
+outputs/counts/*
+!outputs/counts/.gitkeep
+
+# videos anywhere
+*.mp4
+*.avi
