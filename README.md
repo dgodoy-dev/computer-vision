@@ -179,7 +179,7 @@ cv/
 
 ---
 
-## �️ Roadmap
+## 🚗 Roadmap
 
 | # | Use Case | Status |
 |---|---|---|
@@ -190,7 +190,7 @@ cv/
 
 ---
 
-## �📌 Notes
+## 📌 Notes
 
 - All scripts assume they are run from the **project root** directory.
 - The `stream=True` flag in video scripts enables memory-efficient frame-by-frame processing instead of loading the whole video at once.
