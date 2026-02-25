@@ -1,5 +1,12 @@
+# 00 - Image Object Detection
+# 01 - Video Object Detection & Counting
 ultralytics
 supervision
 opencv-python
 matplotlib
 torch
+
+# 03 - Video Speed Estimation
+inference
+trackers
+tqdm

@@ -23,10 +23,12 @@ A collection of practical computer vision use cases built with different detecti
 | Library | Purpose |
 |---|---|
 | [Ultralytics YOLO26](https://github.com/ultralytics/ultralytics) | Object detection & tracking model |
+| [RF-DETR (Roboflow)](https://github.com/roboflow/rf-detr) | Transformer-based object detection model |
 | [OpenCV](https://opencv.org/) | Image/video I/O and drawing |
 | [Supervision](https://github.com/roboflow/supervision) | High-level annotation utilities |
 | [PyTorch](https://pytorch.org/) | Tensor operations and model I/O |
 | [Matplotlib](https://matplotlib.org/) | Data visualization |
+| [tqdm](https://github.com/tqdm/tqdm) | Progress bars for video processing |
 
 ---
 
@@ -41,8 +43,8 @@ A collection of practical computer vision use cases built with different detecti
 | `open_cv_annotation.py` | Runs YOLO inference on an image and draws bounding boxes + labels using raw **OpenCV** drawing functions |
 | `supervision_annotation.py` | Same inference, but uses the **Supervision** `BoxAnnotator` and `LabelAnnotator` for cleaner, high-level overlays |
 
-**Input:** `assets/images/image.png`  
-**Output:** `outputs/image_opencv_detected.png` / `outputs/image_detected.png`
+**Input:** `assets/images/<your_image>.png`  
+**Output:** `outputs/<your_image>_opencv_detected.png` / `outputs/<your_image>_detected.png`
 
 ---
 
@@ -57,7 +59,7 @@ A collection of practical computer vision use cases built with different detecti
 | `show_car_counts.py` | Loads car count data, prints a statistical summary (max, mean, median, std), and plots a count-per-frame graph |
 | `show_counts_per_class_data.py` | Loads multi-class count data and prints sampled frame-by-frame detections |
 
-**Input:** `assets/videos/traffic_video.mp4`  
+**Input:** `assets/videos/<your_video>.mp4`  
 **Output:** `outputs/counts/counts_per_class_and_frame.pt`, `outputs/counts/car_count_per_frame.pt`, `outputs/car_count_per_frame.png`
 
 ---
@@ -68,9 +70,26 @@ A collection of practical computer vision use cases built with different detecti
 
 ---
 
-### `03` — Video Speed Estimation *(coming soon)*
+### `03` — Video Speed Estimation
 
-> Estimate the speed of detected objects across frames using ByteTrack from Roboflow's trackers.
+> Estimate the real-world speed of detected vehicles across frames using perspective transformation and ByteTrack.
+
+| Script | Description |
+|---|---|
+| `main.py` | Runs RF-DETR inference on a traffic video, tracks vehicles with ByteTrack, applies a perspective transform to convert pixel movement into real-world distance, and annotates each vehicle with its estimated speed (km/h) colour-coded by range |
+| `ViewTransformer.py` | Utility class that wraps OpenCV's `getPerspectiveTransform` to map pixel coordinates to a top-down metric plane |
+| `utils.py` | Argument parsing, EMA speed smoothing, and speed-range colour selector |
+| `video_downloader.py` | Helper to download a sample video asset via Supervision |
+
+**Input:** `assets/videos/<your_video>.mp4`  
+**Output:** `outputs/<your_video>_processed.mp4`
+
+**Run:**
+```bash
+python 03-speed-estimation/main.py \
+  -s assets/videos/<your_video>.mp4 \
+  -t outputs/<your_video>_processed.mp4
+```
 
 
 ## 🚀 Getting Started
@@ -107,8 +126,8 @@ Or swap it for any standard Ultralytics model by updating the model path in each
 
 The `assets/`, `models/`, and `outputs/` directories are already present in the repo (tracked via `.gitkeep`). Just drop your files in the right place:
 
-- Place input **images** inside `assets/images/` (e.g. `assets/images/image.png`)
-- Place input **videos** inside `assets/videos/` (e.g. `assets/videos/traffic_video.mp4`)
+- Place input **images** inside `assets/images/` (e.g. `assets/images/<your_image>.png`)
+- Place input **videos** inside `assets/videos/` (e.g. `assets/videos/<your_video>.mp4`)
 
 The scripts reference these paths by default, so make sure the file names match or update the `IMAGE_PATH` / `VIDEO_PATH` constants at the top of each script.
 
@@ -136,6 +155,11 @@ python 01-video-object-detection/show_car_counts.py
 
 # Inspect multi-class counts per frame
 python 01-video-object-detection/show_counts_per_class_data.py
+
+# Vehicle speed estimation
+python 03-speed-estimation/main.py \
+  -s assets/videos/<your_video>.mp4 \
+  -t outputs/<your_video>_processed.mp4
 ```
 
 ---
@@ -153,13 +177,17 @@ cv/
 │   ├── show_car_counts.py
 │   └── show_counts_per_class_data.py
 ├── 02-video-object-tracking/       # coming soon
-├── 03-video-speed-estimation/      # coming soon
+├── 03-speed-estimation/            # vehicle speed estimation via perspective transform
+│   ├── main.py
+│   ├── ViewTransformer.py
+│   ├── utils.py
+│   └── video_downloader.py
 │
 ├── assets/                         # ⚠ contents gitignored — add your own files
 │   ├── images/
 │   │   └── image.png
 │   └── videos/
-│       └── traffic_video.mp4
+│       └── video.mp4
 │
 ├── models/                         # ⚠ contents gitignored — add your own weights
 │   └── yolo26n.pt
@@ -186,7 +214,7 @@ cv/
 | 00 | Image Object Detection | ✅ Done |
 | 01 | Video Object Detection & Counting | ✅ Done |
 | 02 | Video Object Tracking | 🔜 Coming soon |
-| 03 | Video Speed Estimation | 🔜 Coming soon |
+| 03 | Video Speed Estimation | ✅ Done |
 
 ---
 
