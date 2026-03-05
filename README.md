@@ -91,6 +91,44 @@ python 03-speed-estimation/main.py \
   -t outputs/<your_video>_processed.mp4
 ```
 
+---
+
+### `04` — Speed Estimation (Source-Agnostic) *(in progress)*
+
+> A variant of use case `03` designed to work with any video source, with an automatic perspective transform determination step.
+
+---
+
+### `05` — Pose-Based Repetition Counter
+
+> Counts push-up repetitions in real-time using YOLO26 pose estimation. Tracks elbow angles for both arms with temporal smoothing to avoid false positives, and overlays a live GUI (angle arcs, progress bars, repetition count) on each frame.
+>
+> ⚠️ **Designed for a side-view camera perspective.** Angle-based detection relies on a lateral view of the subject; other perspectives (frontal, overhead, etc.) have not been tested and may produce incorrect counts.
+
+| Script | Description |
+|---|---|
+| `simpler_main.py` | Straightforward implementation: extracts the six key upper-body joints explicitly, applies moving-average smoothing, detects arm state transitions (up/down), and counts repetitions using a rising-edge on smoothed boolean history |
+| `pythonic_main.py` | Refactored version of the same logic using dictionaries and loops for keypoint management — more scalable when targeting additional joints or sides |
+| `utils.py` | `calculate_joint_angle` (vector-based, returns radians), `is_arm_down` / `is_arm_up` threshold helpers, and `optimize_model` (TensorRT/OpenVINO export) |
+| `smoothing.py` | `get_moving_average` — sliding-window mean over a `deque` of 2-D keypoint coordinates |
+| `gui.py` | `annotate_metrics` — draws skeleton lines, joint circles, angle arcs (with transparency), left/right progress bars, and a repetition dashboard on the frame |
+| `shared_constants.py` | `UPPER_THRESHOLD` / `LOWER_THRESHOLD` angles (in radians) that define the up/down arm states |
+
+**Input:** `assets/videos/<your_video>.mp4`  
+**Output:** `outputs/<your_video>_processed.mp4` · live preview window
+
+**Run:**
+```bash
+# Simpler, explicit version
+python 05-seg-and-pose-optimized/simpler_main.py
+
+# More pythonic, loop-driven version
+python 05-seg-and-pose-optimized/pythonic_main.py
+```
+
+> ⚠️ The video file name is currently hardcoded as `FILE_NAME` inside each script. Update it to match your asset before running.
+
+---
 
 ## 🚀 Getting Started
 
@@ -160,6 +198,12 @@ python 01-video-object-detection/show_counts_per_class_data.py
 python 03-speed-estimation/main.py \
   -s assets/videos/<your_video>.mp4 \
   -t outputs/<your_video>_processed.mp4
+
+# Pose-based repetition counter — simple version
+python 05-seg-and-pose-optimized/simpler_main.py
+
+# Pose-based repetition counter — pythonic version
+python 05-seg-and-pose-optimized/pythonic_main.py
 ```
 
 ---
@@ -182,6 +226,16 @@ cv/
 │   ├── ViewTransformer.py
 │   ├── utils.py
 │   └── video_downloader.py
+├── 04-speed-estimation-with-to-determine/  # source-agnostic speed estimation (in progress)
+│   └── main.py
+├── 05-seg-and-pose-optimized/      # pose-based repetition counter
+│   ├── simpler_main.py
+│   ├── pythonic_main.py
+│   ├── export_model.py
+│   ├── gui.py
+│   ├── utils.py
+│   ├── smoothing.py
+│   └── shared_constants.py
 │
 ├── assets/                         # ⚠ contents gitignored — add your own files
 │   ├── images/
@@ -215,6 +269,8 @@ cv/
 | 01 | Video Object Detection & Counting | ✅ Done |
 | 02 | Video Object Tracking | 🔜 Coming soon |
 | 03 | Video Speed Estimation | ✅ Done |
+| 04 | Speed Estimation (source-agnostic) | 🚧 In progress |
+| 05 | Pose-Based Repetition Counter | ✅ Done |
 
 ---
 
