@@ -20,7 +20,10 @@ _COLOR_WHITE = (250, 250, 250)
 _COLOR_BLACK = (15, 15, 15)
 _FONT = cv2.FONT_HERSHEY_DUPLEX
 
-_SIDE_COLOR = {"left": _COLOR_CYAN, "right": _COLOR_MAGENTA}
+_SIDE_COLOR: dict[str, tuple[int, int, int]] = {
+    "left": _COLOR_CYAN,
+    "right": _COLOR_MAGENTA,
+}
 
 
 def draw_short_angle_arc(

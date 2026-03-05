@@ -16,6 +16,10 @@ A collection of practical computer vision use cases built with different detecti
 |---|---|
 | ![Supervision demo](docs/demo_supervision.png) | ![OpenCV demo](docs/demo_opencv.png) |
 
+| Pose Estimation Repetition Counter |
+|---|
+| ![Pose Counter demo](docs/demo_pose_counting.gif) |
+
 ---
 
 ## 📦 Tech Stack
