@@ -145,8 +145,12 @@ def main():
         annotated_frame = annotate_metrics(
             annotated_frame,
             {
-                "left": np.array([points[joint] for joint in ARM_JOINTS["left"]]),
-                "right": np.array([points[joint] for joint in ARM_JOINTS["right"]]),
+                "left": np.array(
+                    [smoothed_points[joint] for joint in ARM_JOINTS["left"]]
+                ),
+                "right": np.array(
+                    [smoothed_points[joint] for joint in ARM_JOINTS["right"]]
+                ),
             },
             {
                 "left": left_elbow_angle,

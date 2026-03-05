@@ -152,16 +152,16 @@ def main():
             {
                 "left": np.array(
                     [
-                        left_shoulder,
-                        left_elbow,
-                        left_wrist,
+                        s_left_shoulder,
+                        s_left_elbow,
+                        s_left_wrist,
                     ]
                 ),
                 "right": np.array(
                     [
-                        right_shoulder,
-                        right_elbow,
-                        right_wrist,
+                        s_right_shoulder,
+                        s_right_elbow,
+                        s_right_wrist,
                     ]
                 ),
             },
