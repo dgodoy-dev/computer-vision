@@ -10,15 +10,26 @@ A collection of practical computer vision use cases built with different detecti
 
 ---
 
-## 🖼️ Demo
+## 🎬 Visual Showcase
 
-| Supervision Annotator | OpenCV Annotator |
-|---|---|
-| ![Supervision demo](docs/demo_supervision.png) | ![OpenCV demo](docs/demo_opencv.png) |
-
-| Pose Estimation Repetition Counter |
-|---|
-| ![Pose Counter demo](docs/demo_pose_counting.gif) |
+<table width="100%">
+  <tr>
+    <th width="50%">Image Detection (00)</th>
+    <th width="50%">Vehicle Speed Estimation (03)</th>
+  </tr>
+  <tr>
+    <td><img src="docs/demo_opencv.png" width="100%"></td>
+    <td><img src="docs/demo_speed_estimation.gif" width="100%"></td>
+  </tr>
+  <tr>
+    <th>Pose-Based Repetition Counter (05)</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td><img src="docs/demo_pose_counting.gif" width="100%"></td>
+    <td></td>
+  </tr>
+</table>
 
 ---
 
@@ -26,7 +37,7 @@ A collection of practical computer vision use cases built with different detecti
 
 | Library | Purpose |
 |---|---|
-| [Ultralytics YOLO26](https://github.com/ultralytics/ultralytics) | Object detection & tracking model |
+| [Ultralytics YOLO26](https://github.com/ultralytics/ultralytics) | Object detection, tracking & pose estimation model |
 | [RF-DETR (Roboflow)](https://github.com/roboflow/rf-detr) | Transformer-based object detection model |
 | [OpenCV](https://opencv.org/) | Image/video I/O and drawing |
 | [Supervision](https://github.com/roboflow/supervision) | High-level annotation utilities |
@@ -124,10 +135,10 @@ python 03-speed-estimation/main.py \
 **Run:**
 ```bash
 # Simpler, explicit version
-python 05-seg-and-pose-optimized/simpler_main.py
+python 05-pose-estimation-reps-counter/simpler_main.py
 
 # More pythonic, loop-driven version
-python 05-seg-and-pose-optimized/pythonic_main.py
+python 05-pose-estimation-reps-counter/pythonic_main.py
 ```
 
 > ⚠️ The video file name is currently hardcoded as `FILE_NAME` inside each script. Update it to match your asset before running.
@@ -204,10 +215,10 @@ python 03-speed-estimation/main.py \
   -t outputs/<your_video>_processed.mp4
 
 # Pose-based repetition counter — simple version
-python 05-seg-and-pose-optimized/simpler_main.py
+python 05-pose-estimation-reps-counter/simpler_main.py
 
 # Pose-based repetition counter — pythonic version
-python 05-seg-and-pose-optimized/pythonic_main.py
+python 05-pose-estimation-reps-counter/pythonic_main.py
 ```
 
 ---
@@ -232,7 +243,7 @@ cv/
 │   └── video_downloader.py
 ├── 04-speed-estimation-with-to-determine/  # source-agnostic speed estimation (in progress)
 │   └── main.py
-├── 05-seg-and-pose-optimized/      # pose-based repetition counter
+├── 05-pose-estimation-reps-counter/      # pose-based repetition counter
 │   ├── simpler_main.py
 │   ├── pythonic_main.py
 │   ├── export_model.py
